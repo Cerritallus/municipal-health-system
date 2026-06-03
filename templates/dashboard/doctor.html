@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load priority_tags %}
+
+{% block content %}
+
+<h2>Doctor Dashboard</h2>
+
+<form method="POST" action="/dashboard/bulk-discharge/">
+    {% csrf_token %}
+
+    <table class="table table-bordered table-hover">
+
+        <tr>
+            <th>Select</th>
+            <th>Patient</th>
+            <th>Priority</th>
+            <th>Symptoms</th>
+        </tr>
+
+        {% for item in queue %}
+
+        <tr class="{% priority_class item.priority_level %}">
+
+            <td>
+                <input type="checkbox" name="patient_ids" value="{{ item.patient.id }}">
+            </td>
+
+            <td>{{ item.patient.full_name }}</td>
+            <td>{{ item.priority_level }}</td>
+            <td>{{ item.symptoms }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <button class="btn btn-danger">
+        Bulk Discharge
+    </button>
+
+</form>
+
+{% endblock %}
