@@ -8,6 +8,46 @@
 <form method="POST" action="/dashboard/bulk-discharge/">
     {% csrf_token %}
 
+    <div class="row mb-4">
+
+        <div class="col-md-3">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body">
+                    <h5>Total Patients</h5>
+                    <h2>{{ total_patients }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-danger shadow">
+                <div class="card-body">
+                    <h5>Critical Cases</h5>
+                    <h2>{{ critical_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body">
+                    <h5>High Priority</h5>
+                    <h2>{{ high_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success shadow">
+               <div class="card-body">
+                    <h5>Discharged Today</h5>
+                    <h2>{{ discharged_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <table class="table table-bordered table-hover">
 
         <tr>
@@ -15,11 +55,12 @@
             <th>Patient</th>
             <th>Priority</th>
             <th>Symptoms</th>
+            <th>Status</th>
         </tr>
 
         {% for item in queue %}
 
-        <tr class="{% priority_class item.priority_level %}">
+        <tr class="table-{% priority_class item.priority_level %}">
 
             <td>
                 <input type="checkbox" name="patient_ids" value="{{ item.patient.id }}">
@@ -28,6 +69,15 @@
             <td>{{ item.patient.full_name }}</td>
             <td>{{ item.priority_level }}</td>
             <td>{{ item.symptoms }}</td>
+            <td>
+                {% if item.triage_status == "DISCHARGED" %}
+                    <span class="badge bg-success">DISCHARGED</span>
+                {% elif item.triage_status == "ADMITTED" %}
+                    <span class="badge bg-danger">ADMITTED</span>
+                {% else %}
+                    <span class="badge bg-warning">PENDING</span>
+                {% endif %}
+            </td>
 
         </tr>
 

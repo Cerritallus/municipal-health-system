@@ -12,6 +12,13 @@ class TriageRecord(BaseModel):
         ("CRITICAL", "Critical"),
     )
 
+    STATUS_CHOICES = (
+        ("WAITING", "Waiting"),
+        ("IN_PROGRESS", "In Progress"),
+        ("ADMITTED", "Admitted"),
+        ("DISCHARGED", "Discharged"),
+    )
+
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
     blood_pressure = models.CharField(max_length=20)
@@ -27,7 +34,8 @@ class TriageRecord(BaseModel):
     )
 
     triage_status = models.CharField(
-        max_length=50,
+        max_length=20,
+        choices=STATUS_CHOICES,
         default="WAITING"
     )
 

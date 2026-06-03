@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Add Patient</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <input name="full_name" class="form-control mb-2" placeholder="Full Name">
+    <input name="birth_date" type="date" class="form-control mb-2">
+    <input name="address" class="form-control mb-2" placeholder="Address">
+    <input name="contact_number" class="form-control mb-2" placeholder="Contact">
+    <input name="emergency_contact" class="form-control mb-2" placeholder="Emergency Contact">
+
+    <button class="btn btn-success">
+        Save Patient
+    </button>
+
+</form>
+
+{% endblock %}

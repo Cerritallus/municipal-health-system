@@ -2,35 +2,35 @@
 
 {% block content %}
 
-<div class="row justify-content-center">
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
 
-    <div class="col-md-4">
+    <div class="card shadow" style="width: 400px;">
 
-        <div class="card shadow">
+        <div class="card-header text-center">
+            <h4>Login</h4>
+        </div>
 
-            <div class="card-header">
-                <h3>Login</h3>
-            </div>
+        <div class="card-body">
 
-            <div class="card-body">
+            <form method="POST">
 
-                <form method="POST">
+                {% csrf_token %}
 
-                    {% csrf_token %}
-
-                    <div style="display:none;">
-                        <input type="text" name="phone_number" />
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Invalid username or password
                     </div>
+                {% endif %}
 
-                    {{ form.as_p }}
+                <input type="text" name="username" class="form-control mb-2" placeholder="Username" required>
 
-                    <button class="btn btn-primary w-100">
-                        Login
-                    </button>
+                <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
 
-                </form>
+                <button class="btn btn-primary w-100">
+                    Login
+                </button>
 
-            </div>
+            </form>
 
         </div>
 

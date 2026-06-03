@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Triage Patient: {{ patient.full_name }}</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <input name="blood_pressure" class="form-control mb-2" placeholder="Blood Pressure">
+    <input name="temperature" class="form-control mb-2" placeholder="Temperature">
+    <input name="pulse_rate" class="form-control mb-2" placeholder="Pulse Rate">
+    <input name="oxygen_level" class="form-control mb-2" placeholder="Oxygen Level">
+
+    <textarea name="symptoms" class="form-control mb-2" placeholder="Symptoms"></textarea>
+
+    <button class="btn btn-danger">
+        Submit Triage
+    </button>
+
+</form>
+
+{% endblock %}

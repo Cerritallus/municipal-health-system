@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Patient List</h2>
+
+<a href="/patients/create/" class="btn btn-primary mb-3">
+    Add Patient
+</a>
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+        <div class="card bg-info text-white shadow">
+            <div class="card-body">
+                <h5>Total Patients</h5>
+                <h2>{{ patients|length }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-danger text-white shadow">
+            <div class="card-body">
+                <h5>Pending Triage</h5>
+                <h2>{{ pending_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                <h5>Completed Today</h5>
+                <h2>{{ completed_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<table class="table table-striped table-hover">
+
+    <tr>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for p in patients %}
+
+    <tr>
+
+        <td>{{ p.full_name }}</td>
+        <td>{{ p.contact_number }}</td>
+
+        <td>
+
+            <a href="/triage/{{ p.id }}/" class="btn btn-warning btn-sm">
+                Triage
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

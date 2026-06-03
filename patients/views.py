@@ -6,11 +6,15 @@ from security.audit import log_event
 @role_required(["NURSE", "ADMIN"])
 def patient_list(request):
 
-    patients = Patient.objects.filter(created_by=request.user)
+    patients = Patient.objects.all()
 
-    return render(request, "patients/list.html", {
-        "patients": patients
-    })
+    context = {
+        "patients": patients,
+        "pending_count": patients.filter(triagerecord__isnull=True).count(),
+        "completed_count": patients.filter(triagerecord__isnull=False).count(),
+    }
+
+    return render(request, "patients/list.html", context)
 
 
 @role_required(["NURSE", "ADMIN"])

@@ -5,13 +5,11 @@ register = template.Library()
 @register.simple_tag
 def priority_class(level):
 
-    if level == "CRITICAL":
-        return "table-danger"
+    mapping = {
+        "CRITICAL": "danger",
+        "HIGH": "warning",
+        "MEDIUM": "info",
+        "LOW": "success",
+    }
 
-    if level == "HIGH":
-        return "table-warning"
-
-    if level == "MEDIUM":
-        return "table-info"
-
-    return ""
+    return mapping.get(level, "secondary")
