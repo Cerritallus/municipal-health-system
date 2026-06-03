@@ -197,11 +197,3 @@ The system passed:
 * Bandit SAST scans
 * pip-audit dependency scans
 * Django check --deploy validation
-
----
-
-# Researchers / Developers
-
-Municipal Health & Triage Management System Development Team
-EVSU Main Campus
-2026
